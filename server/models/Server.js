@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import userRoutes from "../routes/userRoute.js";
-import conn from "../db/dbConnection.js";
+import dbQuery from "../db/dbConnection.js";
 export default class Server {
   constructor() {
     // inicializar express
@@ -9,8 +9,6 @@ export default class Server {
     // definir variables del servidor
     this.port = process.env.PORT;
     this.userPath = "/api/users";
-
-    console.log(conn);
 
     // cargar middlewares y rutas
     this.middlewares();
@@ -26,7 +24,7 @@ export default class Server {
     this.app.use(this.userPath, userRoutes);
   }
 
-  listen() {
+  async listen() {
     this.app.listen(this.port, () => {
       console.log(`Servidor corriendo en el puerto: ${this.port} 🚀`);
     });
