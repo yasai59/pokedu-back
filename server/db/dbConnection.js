@@ -1,7 +1,10 @@
 import mariadb from "mariadb";
 import dotenv from "dotenv";
+
+// Cargar variables de entorno
 dotenv.config();
 
+// Crear pool de conexiones ( conexion permanente)
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -9,6 +12,7 @@ const pool = mariadb.createPool({
   database: "pokedu",
 });
 
+// Funcion para realizar consultas a la base de datos
 async function dbQuery(query) {
   let result = false;
   try {

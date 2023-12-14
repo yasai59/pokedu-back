@@ -1,11 +1,14 @@
 import express from "express";
 import cors from "cors";
 import userRoutes from "../routes/userRoute.js";
-import dbQuery from "../db/dbConnection.js";
+
 export default class Server {
+
   constructor() {
+
     // inicializar express
     this.app = express();
+
     // definir variables del servidor
     this.port = process.env.PORT;
     this.userPath = "/api/users";
@@ -23,7 +26,7 @@ export default class Server {
   routes() {
     this.app.use(this.userPath, userRoutes);
   }
-
+  // Aviso log esta escuchando en el puerto
   async listen() {
     this.app.listen(this.port, () => {
       console.log(`Servidor corriendo en el puerto: ${this.port} 🚀`);
