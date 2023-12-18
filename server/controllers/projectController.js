@@ -16,16 +16,17 @@ export const projectsGet = async (req, res) => {
 };
 
 export const projectDelete = async (req, res) => {
-    const { projectID } = req.body;
+    const { projectId } = req.body;
     let result;
     try {
-        result = await dbQuery(`DELETE FROM PROJECTES WHERE Id = '${projectID}';`);
+        result = await dbQuery(`DELETE FROM PROJECTES WHERE id = '${projectId}';`);
     } catch (e) {
         console.log(e);
         return res.json({
         error: "Invalid query",
         });
     }
+
     res.json({
         msg: "ok",
       });
@@ -36,7 +37,7 @@ export const projectGet = async (req, res) => {
   
     let result;
     try {
-      result = await dbQuery(`SELECT * FROM PROJECTES WHERE Id = ${projectID};`);
+      result = await dbQuery(`SELECT * FROM PROJECTES WHERE id = ${projectID};`);
     } catch (e) {
       return res.json({
         error: "Invalid query",
@@ -55,7 +56,7 @@ export const projectGet = async (req, res) => {
     let result;
     try {
       result = await dbQuery(
-        `INSERT INTO PROJECTES (Nom) VALUES ('${projectName}');`
+        `INSERT INTO PROJECTES (nom) VALUES ('${projectName}');`
       );
     } catch (e) {
       console.log(e);
@@ -75,7 +76,7 @@ export const projectGet = async (req, res) => {
     let result;
     try {
       result = await dbQuery(
-        `UPDATE PROJECTES SET Nom = '${projectName}' WHERE Id = '${projectId}'`
+        `UPDATE PROJECTES SET nom = '${projectName}' WHERE id = '${projectId}'`
       );
     } catch (e) {
       console.log(e);

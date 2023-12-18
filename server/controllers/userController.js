@@ -22,7 +22,7 @@ export const userDelete = async (req, res) => {
   const { userId } = req.body;
   let result;
   try {
-    result = await dbQuery(`DELETE FROM USUARIOS WHERE Id = '${userId}';`);
+    result = await dbQuery(`DELETE FROM USUARIOS WHERE id = '${userId}';`);
   } catch (e) {
     console.log(e);
     return res.json({
@@ -40,7 +40,7 @@ export const userGet = async (req, res) => {
 
   let result;
   try {
-    result = await dbQuery(`SELECT * FROM USUARIOS WHERE Id = ${userId};`);
+    result = await dbQuery(`SELECT * FROM USUARIOS WHERE id = ${userId};`);
   } catch (e) {
     return res.json({
       error: "Invalid query",
@@ -61,7 +61,7 @@ export const userPost = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `INSERT INTO USUARIOS (User,Pass,Nom,Tipus) VALUES ('${userUser}','${hashedPass}','${userName}','${userType}');`
+      `INSERT INTO USUARIOS (user,pass,nom,tipus) VALUES ('${userUser}','${hashedPass}','${userName}','${userType}');`
     );
   } catch (e) {
     console.log(e);
@@ -81,7 +81,7 @@ export const userPut = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `UPDATE USUARIOS SET Foto = '${userFoto}' WHERE Id = '${userId}'`
+      `UPDATE USUARIOS SET foto = '${userFoto}' WHERE id = '${userId}'`
     );
   } catch (e) {
     console.log(e);
@@ -101,7 +101,7 @@ export const login = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `SELECT Id, User, Nom, Pass, Tipus FROM USUARIOS WHERE User = '${userName}'`
+      `SELECT id, user, nom, pass, tipus FROM USUARIOS WHERE user = '${userName}'`
     );
   } catch (e) {
     return res.json({
