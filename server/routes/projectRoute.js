@@ -8,7 +8,7 @@ const router = Router();
 
 //Ruta para obtener todos los usuarios
 router.get("/", projectsGet);
-router.get("/project/", projectGet);
+router.get("/project", projectGet);
 router.post("/", projectPost);
 router.put("/",projectPut);
 router.delete("/",projectDelete);

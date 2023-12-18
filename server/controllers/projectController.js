@@ -33,11 +33,11 @@ export const projectDelete = async (req, res) => {
 };
 
 export const projectGet = async (req, res) => {
-    const { projectID } = req.body;
+    const { projectId } = req.body;
   
     let result;
     try {
-      result = await dbQuery(`SELECT * FROM PROJECTES WHERE id = ${projectID};`);
+      result = await dbQuery(`SELECT * FROM PROJECTES WHERE id = ${projectId};`);
     } catch (e) {
       return res.json({
         error: "Invalid query",
