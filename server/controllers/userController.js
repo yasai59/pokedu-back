@@ -116,13 +116,18 @@ export const login = async (req, res) => {
   }
 
   let user = result[0];
-
-  if (!bcrypt.compareSync(userPass, user.Pass)) {
+  try {
+    if (!bcrypt.compareSync(userPass, user.pass)) {
+      return res.status(400).json({
+        error: "Invalid user or password",
+      });
+    }
+  } catch (e) {
     return res.status(400).json({
       error: "Invalid user or password",
     });
   }
-  const token = jwt.sign(user.Id, process.env.SECRET);
+  const token = jwt.sign(user.id, process.env.SECRET);
 
   delete user.Pass;
   res.json({
