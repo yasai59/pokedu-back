@@ -101,7 +101,7 @@ export const login = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `SELECT Id, User, Nom, Pass FROM USUARIOS WHERE User = '${userName}'`
+      `SELECT Id, User, Nom, Pass, Tipus FROM USUARIOS WHERE User = '${userName}'`
     );
   } catch (e) {
     return res.json({

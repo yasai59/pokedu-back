@@ -16,7 +16,7 @@ const router = Router();
 //Ruta para obtener todos los usuarios
 router.get("/", usersGet);
 router.get("/user", userGet);
-router.get("/login", login);
+router.post("/login", login);
 
 router.post("/", userPost);
 router.delete("/", userDelete);

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import userRoutes from "../routes/userRoute.js";
-
+import projectRoute from "../routes/projectRoute.js";
 export default class Server {
 
   constructor() {
@@ -12,6 +12,7 @@ export default class Server {
     // definir variables del servidor
     this.port = process.env.PORT;
     this.userPath = "/api/users";
+    this.projectPath = "/api/projects";
 
     // cargar middlewares y rutas
     this.middlewares();
@@ -26,6 +27,7 @@ export default class Server {
 
   routes() {
     this.app.use(this.userPath, userRoutes);
+    this.app.use(this.projectPath, projectRoute);
   }
   // Aviso log esta escuchando en el puerto
   async listen() {
