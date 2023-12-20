@@ -3,6 +3,7 @@ import cors from "cors";
 import userRoutes from "../routes/userRoute.js";
 import projectRoute from "../routes/projectRoute.js";
 import itemRoute from "../routes/itemRoute.js";
+import activityRoute from "../routes/activityRoute.js";
 export default class Server {
 
   constructor() {
@@ -15,7 +16,7 @@ export default class Server {
     this.userPath = "/api/users";
     this.projectPath = "/api/projects";
     this.itemPath = "/api/items";
-    this.itemPath = "/api/activities";
+    this.activityPath = "/api/activities";
 
     // cargar middlewares y rutas
     this.middlewares();
@@ -32,6 +33,7 @@ export default class Server {
     this.app.use(this.userPath, userRoutes);
     this.app.use(this.projectPath, projectRoute);
     this.app.use(this.itemPath, itemRoute);
+    this.app.use(this.activityPath, activityRoute);
   }
   // Aviso log esta escuchando en el puerto
   async listen() {

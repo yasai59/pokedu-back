@@ -5,7 +5,7 @@ export const activitiesGet = async (req, res) => {
     try {
       result = await dbQuery("SELECT * FROM ACTIVITATS;");
     } catch (e) {
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -22,7 +22,7 @@ export const activityDelete = async (req, res) => {
         result = await dbQuery(`DELETE FROM ACTIVITATS WHERE id = '${activityId}';`);
     } catch (e) {
         console.log(e);
-        return res.json({
+        return res.status(400).json({
         error: "Invalid query",
         });
     }
@@ -39,7 +39,7 @@ export const activityGet = async (req, res) => {
     try {
       result = await dbQuery(`SELECT * FROM ACTIVITATS WHERE id = ${activityId};`);
     } catch (e) {
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -51,16 +51,16 @@ export const activityGet = async (req, res) => {
   
 
   export const activityPost = async (req, res) => {
-    const {activityName, activityPercentatge, activityFoto} = req.body;
+    const {activityName, activityDataInici, activityDataFinal, activityProjectId} = req.body;
 
     let result;
     try {
       result = await dbQuery(
-        `INSERT INTO ACTIVITATS (nom,percentatge,foto) VALUES ('${activityName}','${activityPercentatge}','${activityFoto}');`
+        `INSERT INTO ACTIVITATS (nom, doc, \`data-inici\`, \`data-final\`, projecte) VALUES ('${activityName}',NULL,'${activityDataInici}','${activityDataFinal}','${activityProjectId}');`
       );
     } catch (e) {
       console.log(e);
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -68,7 +68,7 @@ export const activityGet = async (req, res) => {
     res.json({
       msg: "ok",
     });
-  };server/controllers/itemController.js
+  };
 
   export const activityPut = async (req, res) => {
     const { activityId, activityDataFinal } = req.body;
@@ -80,7 +80,7 @@ export const activityGet = async (req, res) => {
       );
     } catch (e) {
       console.log(e);
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }

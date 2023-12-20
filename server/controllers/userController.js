@@ -8,7 +8,7 @@ export const usersGet = async (req, res) => {
   try {
     result = await dbQuery("SELECT * FROM USUARIOS;");
   } catch (e) {
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }
@@ -25,7 +25,7 @@ export const userDelete = async (req, res) => {
     result = await dbQuery(`DELETE FROM USUARIOS WHERE id = '${userId}';`);
   } catch (e) {
     console.log(e);
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }
@@ -42,7 +42,7 @@ export const userGet = async (req, res) => {
   try {
     result = await dbQuery(`SELECT * FROM USUARIOS WHERE id = ${userId};`);
   } catch (e) {
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }
@@ -65,7 +65,7 @@ export const userPost = async (req, res) => {
     );
   } catch (e) {
     console.log(e);
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }
@@ -85,7 +85,7 @@ export const userPut = async (req, res) => {
     );
   } catch (e) {
     console.log(e);
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }
@@ -104,7 +104,7 @@ export const login = async (req, res) => {
       `SELECT id, user, nom, pass, tipus FROM USUARIOS WHERE user = '${userName}'`
     );
   } catch (e) {
-    return res.json({
+    return res.status(400).json({
       error: "Invalid query",
     });
   }

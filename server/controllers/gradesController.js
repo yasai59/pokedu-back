@@ -1,9 +1,9 @@
 import dbQuery from "../db/dbConnection.js";
 
-export const itemsGet = async (req, res) => {
+export const activitiesGet = async (req, res) => {
     let result;
     try {
-      result = await dbQuery("SELECT * FROM ITEMS;");
+      result = await dbQuery("SELECT * FROM NOTAS;");
     } catch (e) {
       return res.status(400).json({
         error: "Invalid query",
@@ -15,11 +15,11 @@ export const itemsGet = async (req, res) => {
     });
 };
 
-export const itemDelete = async (req, res) => {
-    const { itemId } = req.body;
+export const activityDelete = async (req, res) => {
+    const { activityId } = req.body;
     let result;
     try {
-        result = await dbQuery(`DELETE FROM ITEMS WHERE id = '${itemId}';`);
+        result = await dbQuery(`DELETE FROM NOTAS WHERE id = '${activityId}';`);
     } catch (e) {
         console.log(e);
         return res.status(400).json({
@@ -32,12 +32,12 @@ export const itemDelete = async (req, res) => {
       });
 };
 
-export const itemGet = async (req, res) => {
-    const { itemId } = req.body;
+export const activityGet = async (req, res) => {
+    const { activityId } = req.body;
   
     let result;
     try {
-      result = await dbQuery(`SELECT * FROM ITEMS WHERE id = ${itemId};`);
+      result = await dbQuery(`SELECT * FROM NOTAS WHERE id = ${activityId};`);
     } catch (e) {
       return res.status(400).json({
         error: "Invalid query",
@@ -50,13 +50,13 @@ export const itemGet = async (req, res) => {
   };
   
 
-  export const itemPost = async (req, res) => {
-    const {itemName, itemPercentatge, itemFoto} = req.body;
+  export const activityPost = async (req, res) => {
+    const {activityName, activityDataInici, activityDataFinal, activityProjectId} = req.body;
 
     let result;
     try {
       result = await dbQuery(
-        `INSERT INTO ITEMS (nom,percentatge,foto) VALUES ('${itemName}','${itemPercentatge}','${itemFoto}');`
+        `INSERT INTO NOTAS (nom, doc, \`data-inici\`, \`data-final\`, projecte) VALUES ('${activityName}',NULL,'${activityDataInici}','${activityDataFinal}','${activityProjectId}');`
       );
     } catch (e) {
       console.log(e);
@@ -70,13 +70,13 @@ export const itemGet = async (req, res) => {
     });
   };
 
-  export const itemPut = async (req, res) => {
-    const { itemId, itemFoto } = req.body;
+  export const activityPut = async (req, res) => {
+    const { activityId, activityDataFinal } = req.body;
   
     let result;
     try {
       result = await dbQuery(
-        `UPDATE ITEMS SET foto = '${itemFoto}' WHERE id = '${itemId}'`
+        `UPDATE NOTAS SET data-final = '${activityDataFinal}' WHERE id = '${activityId}'`
       );
     } catch (e) {
       console.log(e);

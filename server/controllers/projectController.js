@@ -5,7 +5,7 @@ export const projectsGet = async (req, res) => {
     try {
       result = await dbQuery("SELECT * FROM PROJECTES;");
     } catch (e) {
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -22,7 +22,7 @@ export const projectDelete = async (req, res) => {
         result = await dbQuery(`DELETE FROM PROJECTES WHERE id = '${projectId}';`);
     } catch (e) {
         console.log(e);
-        return res.json({
+        return res.status(400).json({
         error: "Invalid query",
         });
     }
@@ -39,7 +39,7 @@ export const projectGet = async (req, res) => {
     try {
       result = await dbQuery(`SELECT * FROM PROJECTES WHERE id = ${projectId};`);
     } catch (e) {
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -60,7 +60,7 @@ export const projectGet = async (req, res) => {
       );
     } catch (e) {
       console.log(e);
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
@@ -80,7 +80,7 @@ export const projectGet = async (req, res) => {
       );
     } catch (e) {
       console.log(e);
-      return res.json({
+      return res.status(400).json({
         error: "Invalid query",
       });
     }
