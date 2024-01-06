@@ -5,7 +5,8 @@ export const itemsGet = async (req, res) => {
     try {
       result = await dbQuery("SELECT * FROM ITEMS;");
     } catch (e) {
-      return res.status(400).json({
+      return res.status(400).json(
+        {
         error: "Invalid query",
       });
     }
@@ -22,7 +23,9 @@ export const itemDelete = async (req, res) => {
         result = await dbQuery(`DELETE FROM ITEMS WHERE id = '${itemId}';`);
     } catch (e) {
         console.log(e);
-        return res.status(400).json({
+        return res.status(400).json(
+          
+{
         error: "Invalid query",
         });
     }
@@ -39,7 +42,33 @@ export const itemGet = async (req, res) => {
     try {
       result = await dbQuery(`SELECT * FROM ITEMS WHERE id = ${itemId};`);
     } catch (e) {
-      return res.status(400).json({
+      return res.status(400).json(
+        {
+        error: "Invalid query",
+      });
+    }
+  
+    res.json({
+      msg: result,
+    });
+  };
+  
+  export const itemsProjectGet = async (req, res) => {
+    const { projectId } = req.body;
+  
+    let result;
+    try {
+      result = await dbQuery(`SELECT i.*
+      FROM ITEMS i
+      JOIN NOTAS n ON i.id = n.item
+      JOIN ACTIVITATS a ON n.activitat = a.id
+      JOIN USUARIOS_PROJECTES up ON a.projecte = up.projecte
+      JOIN PROJECTES p ON up.projecte = p.id
+      WHERE p.id = ${projectId};
+      `);
+    } catch (e) {
+      return res.status(400).json(
+        {
         error: "Invalid query",
       });
     }
@@ -60,7 +89,8 @@ export const itemGet = async (req, res) => {
       );
     } catch (e) {
       console.log(e);
-      return res.status(400).json({
+      return res.status(400).json(
+        {
         error: "Invalid query",
       });
     }
@@ -80,7 +110,8 @@ export const itemGet = async (req, res) => {
       );
     } catch (e) {
       console.log(e);
-      return res.status(400).json({
+      return res.status(400).json(
+        {
         error: "Invalid query",
       });
     }
