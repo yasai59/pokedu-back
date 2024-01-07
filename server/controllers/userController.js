@@ -18,6 +18,23 @@ export const usersGet = async (req, res) => {
   });
 };
 
+export const studentsGet = async (req, res) => {
+  let result;
+  try {
+    result = await dbQuery(
+      "SELECT * FROM USUARIOS WHERE tipus = 'STUDENT_ROLE';"
+    );
+  } catch (e) {
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: result,
+  });
+};
+
 export const userDelete = async (req, res) => {
   const { userId } = req.body;
   let result;

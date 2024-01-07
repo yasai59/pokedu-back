@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   login,
+  studentsGet,
   userDelete,
   userGet,
   userPost,
@@ -15,6 +16,7 @@ const router = Router();
 
 //Ruta para obtener todos los usuarios
 router.get("/", usersGet);
+router.get("/students", studentsGet);
 router.get("/user", userGet);
 router.post("/login", login);
 
