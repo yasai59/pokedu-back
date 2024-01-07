@@ -7,9 +7,7 @@ import activityRoute from "../routes/activityRoute.js";
 import gradeRoute from "../routes/gradeRoute.js";
 import gradeprojectRoute from "../routes/gradeprojectRoute.js";
 export default class Server {
-
   constructor() {
-
     // inicializar express
     this.app = express();
 
