@@ -94,7 +94,10 @@ export const userPost = async (req, res) => {
 
 
 export const importUsersPost = async (req, res) => {
-  const usersArray = req.body;
+  let {usersArray} = req.body;
+
+  usersArray = JSON.parse(usersArray);
+
   if (!Array.isArray(usersArray)) {
     return res.status(400).json({
       error: "Invalid request body. Expecting an array.",
