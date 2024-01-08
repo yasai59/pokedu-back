@@ -33,7 +33,7 @@ export const itemDelete = async (req, res) => {
 };
 
 export const itemGet = async (req, res) => {
-  const { itemId } = req.body;
+  const { itemId } = req.query;
 
   let result;
   try {

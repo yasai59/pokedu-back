@@ -53,7 +53,7 @@ export const userDelete = async (req, res) => {
 };
 
 export const userGet = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.query;
 
   let result;
   try {
@@ -93,13 +93,28 @@ export const userPost = async (req, res) => {
 };
 
 export const userPut = async (req, res) => {
-  const { userId, userFoto } = req.body;
+  const { userId, userFoto, user, pass, nom, tipus } = req.body;
+
+  const setClause = [];
+  if (userFoto) setClause.push(`foto = '${userFoto}'`);
+  if (user) setClause.push(`user = '${user}'`);
+  if (pass) setClause.push(`pass = '${pass}'`);
+  if (nom) setClause.push(`nom = '${nom}'`);
+  if (tipus) setClause.push(`tipus = '${tipus}'`);
+
+  if (setClause.length === 0) {
+    return res.status(400).json({
+      error: "No parameters provided for update",
+    });
+  }
 
   let result;
   try {
-    result = await dbQuery(
-      `UPDATE USUARIOS SET foto = '${userFoto}' WHERE id = '${userId}'`
-    );
+    result = await dbQuery(`
+      UPDATE USUARIOS 
+      SET ${setClause.join(', ')}
+      WHERE id = '${userId}'
+    `);
   } catch (e) {
     console.log(e);
     return res.status(400).json({

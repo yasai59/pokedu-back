@@ -33,7 +33,7 @@ export const projectDelete = async (req, res) => {
 };
 
 export const projectGet = async (req, res) => {
-    const { projectId } = req.body;
+    const { projectId } = req.query;
   
     let result;
     try {

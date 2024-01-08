@@ -33,7 +33,7 @@ export const activityDelete = async (req, res) => {
 };
 
 export const activityGet = async (req, res) => {
-    const { activityId } = req.body;
+    const { activityId } = req.query;
   
     let result;
     try {
@@ -89,3 +89,47 @@ export const activityGet = async (req, res) => {
       msg: "ok",
     });
   };
+
+
+  export const currentActivityUserGet = async (req, res) => {
+    const { userId } = req.query;
+    let result;
+    try {
+      result = await dbQuery(`
+        SELECT a.id AS id_actividad, a.nom AS nombre_actividad, a.\`data-inici\` AS fecha_inicio, a.\`data-final\` AS fecha_final
+        FROM ACTIVITATS a
+        JOIN NOTAS n ON a.id = n.activitat
+        JOIN USUARIOS u ON n.alumne = u.id
+        WHERE u.id = ${userId} AND a.\`data-final\` > NOW()
+        ORDER BY a.\`data-inici\`;
+      `);
+    } catch (e) {
+      return res.status(400).json({
+        error: "Invalid query",
+      });
+    }
+    res.json(result);
+  };
+
+  export const finishedActivityUserGet = async (req, res) => {
+    const { userId } = req.query;
+    let result;
+    try {
+      result = await dbQuery(`
+        SELECT a.id AS id_actividad, a.nom AS nombre_actividad, a.\`data-inici\` AS fecha_inicio, a.\`data-final\` AS fecha_final
+        FROM ACTIVITATS a
+        JOIN NOTAS n ON a.id = n.activitat
+        JOIN USUARIOS u ON n.alumne = u.id
+        WHERE u.id = ${userId} AND a.\`data-final\` <= NOW()
+        ORDER BY a.\`data-inici\`;
+      `);
+    } catch (e) {
+      return res.status(400).json({
+        error: "Invalid query",
+      });
+    }
+    res.json(result);
+  };
+
+
+ 

@@ -33,7 +33,7 @@ export const gradeprojectDelete = async (req, res) => {
 };
 
 export const gradeprojectGet = async (req, res) => {
-    const { gradeprojectId } = req.body;
+    const { gradeprojectId } = req.request;
   
     let result;
     try {

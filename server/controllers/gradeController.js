@@ -33,7 +33,7 @@ export const gradeDelete = async (req, res) => {
 };
 
 export const gradeGet = async (req, res) => {
-    const { gradeId } = req.body;
+    const { gradeId } = req.request;
   
     let result;
     try {
