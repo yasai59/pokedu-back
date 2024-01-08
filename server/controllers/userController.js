@@ -92,6 +92,47 @@ export const userPost = async (req, res) => {
   });
 };
 
+
+export const importUsersPost = async (req, res) => {
+  const usersArray = req.body;
+  if (!Array.isArray(usersArray)) {
+    return res.status(400).json({
+      error: "Invalid request body. Expecting an array.",
+    });
+  }
+
+  const hashedUsersArray = [];
+  usersArray.forEach((user) => {
+    hashedUsersArray.push({
+      userUser: user.user,
+      userPass: user.pass,
+      userName: user.nom,
+      userType: user.tipus,
+    });
+  });
+
+  const valuesClause = hashedUsersArray
+    .map(
+      (user) =>
+        `('${user.userUser}', '${user.userPass}', '${user.userName}', '${user.userType}')`
+    )
+    .join(',');
+
+  let result;
+  try {
+    result = await dbQuery(`INSERT INTO USUARIOS (user, pass, nom, tipus) VALUES ${valuesClause};`);
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: "ok",
+  });
+};
+
 export const userPut = async (req, res) => {
   const { userId, userFoto, user, pass, nom, tipus } = req.body;
 
@@ -162,3 +203,4 @@ export const login = async (req, res) => {
     token,
   });
 };
+

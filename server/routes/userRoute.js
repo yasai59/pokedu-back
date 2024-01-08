@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  importUsersPost,
   login,
   studentsGet,
   userDelete,
@@ -19,7 +20,7 @@ router.get("/", usersGet);
 router.get("/students", studentsGet);
 router.get("/user", userGet);
 router.post("/login", login);
-
+router.post("/importusers", importUsersPost)
 router.post("/", userPost);
 router.delete("/", userDelete);
 router.put("/", userPut);
