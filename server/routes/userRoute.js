@@ -15,7 +15,7 @@ const router = Router();
 
 //router.get("/", [verifyJWT], usersGet); ejemplo verificar
 
-//Ruta para obtener todos los usuarios
+//Rutas usuarios
 router.get("/", usersGet);
 router.get("/students", studentsGet);
 router.get("/user", userGet);

@@ -1,5 +1,8 @@
 import dbQuery from "../db/dbConnection.js";
 
+//Querys de la tabla ITEMS
+
+//Obtener todos los items
 export const itemsGet = async (req, res) => {
   let result;
   try {
@@ -15,6 +18,7 @@ export const itemsGet = async (req, res) => {
   });
 };
 
+//Borrar un item
 export const itemDelete = async (req, res) => {
   const { itemId } = req.body;
   let result;
@@ -32,6 +36,7 @@ export const itemDelete = async (req, res) => {
   });
 };
 
+//Obtener un item en concreto
 export const itemGet = async (req, res) => {
   const { itemId } = req.query;
 
@@ -49,6 +54,7 @@ export const itemGet = async (req, res) => {
   });
 };
 
+//Conseguir todos los items de un projecto
 export const itemsProjectGet = async (req, res) => {
   const { projectId } = req.query;
   let result;
@@ -72,6 +78,7 @@ export const itemsProjectGet = async (req, res) => {
   });
 };
 
+//Crear un item
 export const itemPost = async (req, res) => {
   const { itemName, itemPercentatge, itemFoto } = req.body;
 
@@ -92,6 +99,7 @@ export const itemPost = async (req, res) => {
   });
 };
 
+//Editar un item
 export const itemPut = async (req, res) => {
   const { itemId, itemFoto } = req.body;
 

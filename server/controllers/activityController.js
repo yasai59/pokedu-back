@@ -1,5 +1,9 @@
 import dbQuery from "../db/dbConnection.js";
 
+
+//Querys de la tabla ACTIVITATS
+
+//Obtener todas las actividades
 export const activitiesGet = async (req, res) => {
     let result;
     try {
@@ -15,6 +19,7 @@ export const activitiesGet = async (req, res) => {
     });
 };
 
+//Borrar una actividad
 export const activityDelete = async (req, res) => {
     const { activityId } = req.body;
     let result;
@@ -32,6 +37,7 @@ export const activityDelete = async (req, res) => {
       });
 };
 
+//Obtener una actividad en concreto
 export const activityGet = async (req, res) => {
     const { activityId } = req.query;
   
@@ -49,7 +55,7 @@ export const activityGet = async (req, res) => {
     });
   };
   
-
+//Crear una actividad
   export const activityPost = async (req, res) => {
     const {activityName, activityDataInici, activityDataFinal, activityProjectId} = req.body;
 
@@ -70,6 +76,7 @@ export const activityGet = async (req, res) => {
     });
   };
 
+  //Editar una actividad
   export const activityPut = async (req, res) => {
     const { activityId, activityDataFinal } = req.body;
   
@@ -90,7 +97,7 @@ export const activityGet = async (req, res) => {
     });
   };
 
-
+//Que actividades tiene un usuario en concreto y estan activas
   export const currentActivityUserGet = async (req, res) => {
     const { userId } = req.query;
     let result;
@@ -111,6 +118,7 @@ export const activityGet = async (req, res) => {
     res.json(result);
   };
 
+  //Que actividades tiene un usuario en concreto y estan cerradas
   export const finishedActivityUserGet = async (req, res) => {
     const { userId } = req.query;
     let result;

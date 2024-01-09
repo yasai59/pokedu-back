@@ -2,7 +2,9 @@ import dbQuery from "../db/dbConnection.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-//Request es los que recoje la informacion que se envia, res es la respuesta que se envia
+//Querys de la tabla USUARIOS
+
+//Obtener todos los usuarios
 export const usersGet = async (req, res) => {
   let result;
   try {
@@ -18,6 +20,7 @@ export const usersGet = async (req, res) => {
   });
 };
 
+//Obtener todos los estudiantes
 export const studentsGet = async (req, res) => {
   let result;
   try {
@@ -35,6 +38,7 @@ export const studentsGet = async (req, res) => {
   });
 };
 
+//Eliminar un usuario
 export const userDelete = async (req, res) => {
   const { userId } = req.body;
   let result;
@@ -52,6 +56,7 @@ export const userDelete = async (req, res) => {
   });
 };
 
+//Obtener un usuario en concreto
 export const userGet = async (req, res) => {
   const { userId } = req.query;
 
@@ -69,6 +74,7 @@ export const userGet = async (req, res) => {
   });
 };
 
+//Crear un usuario
 export const userPost = async (req, res) => {
   const { userUser, userPass, userName, userType } = req.body;
   const temp = req.body;
@@ -92,7 +98,7 @@ export const userPost = async (req, res) => {
   });
 };
 
-
+//Importar usuarios
 export const importUsersPost = async (req, res) => {
   let {usersArray} = req.body;
 
@@ -136,6 +142,7 @@ export const importUsersPost = async (req, res) => {
   });
 };
 
+//Editar un usuario
 export const userPut = async (req, res) => {
   const { userId, userFoto, user, pass, nom, tipus } = req.body;
 
@@ -171,6 +178,7 @@ export const userPut = async (req, res) => {
   });
 };
 
+//Login
 export const login = async (req, res) => {
   const { userName, userPass } = req.body;
 

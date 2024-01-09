@@ -1,5 +1,8 @@
 import dbQuery from "../db/dbConnection.js";
 
+//Querys de la tabla PROJECTES
+
+//Obtener todos los projectos
 export const projectsGet = async (req, res) => {
     let result;
     try {
@@ -15,6 +18,7 @@ export const projectsGet = async (req, res) => {
     });
 };
 
+//Borrar un projecto
 export const projectDelete = async (req, res) => {
     const { projectId } = req.body;
     let result;
@@ -32,6 +36,7 @@ export const projectDelete = async (req, res) => {
       });
 };
 
+//Obtener un projecto en concreto
 export const projectGet = async (req, res) => {
     const { projectId } = req.query;
   
@@ -49,7 +54,7 @@ export const projectGet = async (req, res) => {
     });
   };
   
-
+//Crear un projecto
   export const projectPost = async (req, res) => {
     const { projectName} = req.body;
 
@@ -70,6 +75,7 @@ export const projectGet = async (req, res) => {
     });
   };
 
+  //Modificar un projecto
   export const projectPut = async (req, res) => {
     const { projectId, projectName } = req.body;
   
@@ -90,7 +96,7 @@ export const projectGet = async (req, res) => {
     });
   };
 
-
+//Conseguir todos los projectos de un usuario
   export const projectUserGet = async (req, res) => {
 
     const { userId} = req.query;

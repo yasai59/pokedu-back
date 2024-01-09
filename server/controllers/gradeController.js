@@ -1,5 +1,8 @@
 import dbQuery from "../db/dbConnection.js";
 
+//Querys de la tabla NOTAS
+
+//Obtener todas las notas
 export const gradesGet = async (req, res) => {
     let result;
     try {
@@ -15,6 +18,7 @@ export const gradesGet = async (req, res) => {
     });
 };
 
+//Borrar una nota
 export const gradeDelete = async (req, res) => {
     const { gradeId } = req.body;
     let result;
@@ -32,6 +36,7 @@ export const gradeDelete = async (req, res) => {
       });
 };
 
+//Obtener una nota en concreto
 export const gradeGet = async (req, res) => {
     const { gradeId } = req.request;
   
@@ -49,7 +54,7 @@ export const gradeGet = async (req, res) => {
     });
   };
   
-
+//Crear una nota
   export const gradePost = async (req, res) => {
     const {gradeNota, gradeActivitat, gradeAlumne, gradeItem} = req.body;
 
@@ -70,6 +75,7 @@ export const gradeGet = async (req, res) => {
     });
   };
 
+//Modificar una nota
   export const gradePut = async (req, res) => {
     const { gradeId, gradeNota } = req.body;
   

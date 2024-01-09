@@ -1,14 +1,12 @@
 import jwt from "jsonwebtoken";
 
-// Verificamos JWT en el middeware
+// Verificamos si es un profesor en el middeware
 const verifyTeacher = (req, res, next) => {
-  try {
-    jwt.verify(req.token);
-    const id = jwt.decode(req.token);
-    // TODO: verificar que el usuario sea profesor
-  } catch (e) {
+
+  
+  if(req.userType !== "TEACHER_ROLE"){
     return res.json({
-      error: "Invalid token",
+      error: "No tienes permisos para realizar esta acción" ,
     });
   }
 

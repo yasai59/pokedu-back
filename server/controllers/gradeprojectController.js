@@ -1,5 +1,8 @@
 import dbQuery from "../db/dbConnection.js";
 
+//Querys de la tabla USUARIOS_PROJECTES
+
+//Obtener todos los vlores de la tabla USUARIOS_PROJECTES
 export const gradeprojectsGet = async (req, res) => {
     let result;
     try {
@@ -15,6 +18,7 @@ export const gradeprojectsGet = async (req, res) => {
     });
 };
 
+//Borrar un valor de la tabla USUARIOS_PROJECTES
 export const gradeprojectDelete = async (req, res) => {
     const { gradeprojectId } = req.body;
     let result;
@@ -32,6 +36,7 @@ export const gradeprojectDelete = async (req, res) => {
       });
 };
 
+//Obtener un valor de la tabla USUARIOS_PROJECTES
 export const gradeprojectGet = async (req, res) => {
     const { gradeprojectId } = req.request;
   
@@ -49,7 +54,7 @@ export const gradeprojectGet = async (req, res) => {
     });
   };
   
-
+//Crear un valor de la tabla USUARIOS_PROJECTES
   export const gradeprojectPost = async (req, res) => {
     const {gradeprojectProjecte,gradeprojectAlumne} = req.body;
 
@@ -70,6 +75,7 @@ export const gradeprojectGet = async (req, res) => {
     });
   };
 
+//Modificar un valor de la tabla USUARIOS_PROJECTES
   export const gradeprojectPut = async (req, res) => {
     const { gradeprojectId, gradeprojectProjecte,gradeprojectAlumne } = req.body;
   
