@@ -215,3 +215,31 @@ export const login = async (req, res) => {
   });
 };
 
+//Conseguir todos los usuarios de un projecto
+export const usersProjectGet = async (req, res) => {
+
+  const { projectId} = req.query;
+
+  let result;
+  try {
+    result = await dbQuery(
+      ` SELECT u.*
+      FROM USUARIOS u
+      JOIN USUARIOS_PROJECTES up ON u.id = up.alumne
+      JOIN PROJECTES p ON up.projecte = p.id
+      WHERE u.id = '${projectId}';
+      `
+    );
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: result[0],
+  });
+
+
+};
