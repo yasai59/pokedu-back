@@ -50,7 +50,7 @@ export const itemGet = async (req, res) => {
   }
 
   res.json({
-    msg: result,
+    msg: result[0],
   });
 };
 

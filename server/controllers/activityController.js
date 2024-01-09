@@ -51,7 +51,7 @@ export const activityGet = async (req, res) => {
     }
   
     res.json({
-      msg: result,
+      msg: result[0],
     });
   };
   

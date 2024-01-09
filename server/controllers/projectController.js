@@ -50,7 +50,7 @@ export const projectGet = async (req, res) => {
     }
   
     res.json({
-      msg: result,
+      msg: result[0],
     });
   };
   
@@ -119,7 +119,7 @@ export const projectGet = async (req, res) => {
     }
   
     res.json({
-      msg: result,
+      msg: result[0],
     });
 
 

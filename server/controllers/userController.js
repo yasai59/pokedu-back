@@ -70,7 +70,7 @@ export const userGet = async (req, res) => {
   }
 
   res.json({
-    msg: result,
+    msg: result[0],
   });
 };
 
