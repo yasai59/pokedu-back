@@ -5,7 +5,7 @@ import projectRoute from "../routes/projectRoute.js";
 import itemRoute from "../routes/itemRoute.js";
 import activityRoute from "../routes/activityRoute.js";
 import gradeRoute from "../routes/gradeRoute.js";
-import gradeprojectRoute from "../routes/gradeprojectRoute.js";
+import userprojectRoute from "../routes/userprojectRoute.js";
 export default class Server {
   constructor() {
     // inicializar express
@@ -18,7 +18,7 @@ export default class Server {
     this.itemPath = "/api/items";
     this.activityPath = "/api/activities";
     this.gradePath = "/api/grades";
-    this.gradeprojectPath = "/api/gradeprojects";
+    this.userprojectPath = "/api/userprojects";
 
     // cargar middlewares y rutas
     this.middlewares();
@@ -37,7 +37,7 @@ export default class Server {
     this.app.use(this.itemPath, itemRoute);
     this.app.use(this.activityPath, activityRoute);
     this.app.use(this.gradePath, gradeRoute);
-    this.app.use(this.gradeprojectPath, gradeprojectRoute);
+    this.app.use(this.userprojectPath, userprojectRoute);
   }
   // Aviso log esta escuchando en el puerto
   async listen() {
