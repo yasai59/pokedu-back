@@ -3,7 +3,7 @@ import dbQuery from "../db/dbConnection.js";
 //Querys de la tabla USUARIOS_PROJECTES
 
 //Obtener todos los vlores de la tabla USUARIOS_PROJECTES
-export const gradeprojectsGet = async (req, res) => {
+export const userprojectsGet = async (req, res) => {
     let result;
     try {
       result = await dbQuery("SELECT * FROM USUARIOS_PROJECTES;");
@@ -19,11 +19,11 @@ export const gradeprojectsGet = async (req, res) => {
 };
 
 //Borrar un valor de la tabla USUARIOS_PROJECTES
-export const gradeprojectDelete = async (req, res) => {
-    const { gradeprojectId } = req.body;
+export const userprojectDelete = async (req, res) => {
+    const { userprojectId } = req.body;
     let result;
     try {
-        result = await dbQuery(`DELETE FROM USUARIOS_PROJECTES WHERE id = '${gradeprojectId}';`);
+        result = await dbQuery(`DELETE FROM USUARIOS_PROJECTES WHERE id = '${userprojectId}';`);
     } catch (e) {
         console.log(e);
         return res.status(400).json({
@@ -37,12 +37,12 @@ export const gradeprojectDelete = async (req, res) => {
 };
 
 //Obtener un valor de la tabla USUARIOS_PROJECTES
-export const gradeprojectGet = async (req, res) => {
-    const { gradeprojectId } = req.request;
+export const userprojectGet = async (req, res) => {
+    const { userprojectId } = req.request;
   
     let result;
     try {
-      result = await dbQuery(`SELECT * FROM USUARIOS_PROJECTES WHERE id = ${gradeprojectId};`);
+      result = await dbQuery(`SELECT * FROM USUARIOS_PROJECTES WHERE id = ${userprojectId};`);
     } catch (e) {
       return res.status(400).json({
         error: "Invalid query",
@@ -55,13 +55,13 @@ export const gradeprojectGet = async (req, res) => {
   };
   
 //Crear un valor de la tabla USUARIOS_PROJECTES
-  export const gradeprojectPost = async (req, res) => {
-    const {gradeprojectProjecte,gradeprojectAlumne} = req.body;
+  export const userprojectPost = async (req, res) => {
+    const {userprojectProjecte,userprojectAlumne} = req.body;
 
     let result;
     try {
       result = await dbQuery(
-        `INSERT INTO USUARIOS_PROJECTES (alumne, projecte) VALUES ('${gradeprojectAlumne}','${gradeprojectProjecte}');`
+        `INSERT INTO USUARIOS_PROJECTES (alumne, projecte) VALUES ('${userprojectAlumne}','${userprojectProjecte}');`
       );
     } catch (e) {
       console.log(e);
@@ -76,14 +76,14 @@ export const gradeprojectGet = async (req, res) => {
   };
 
 //Modificar un valor de la tabla USUARIOS_PROJECTES
-  export const gradeprojectPut = async (req, res) => {
-    const { gradeprojectId, gradeprojectProjecte,gradeprojectAlumne } = req.body;
+  export const userprojectPut = async (req, res) => {
+    const { userprojectId, userprojectProjecte,userprojectAlumne } = req.body;
   
     let result;
     try {
       result = await dbQuery(
-        `UPDATE USUARIOS_PROJECTES SET alumne = '${gradeprojectAlumne}' WHERE id = '${gradeprojectId}'`
-        `UPDATE USUARIOS_PROJECTES SET projecte = '${gradeprojectProjecte}' WHERE id = '${gradeprojectId}'`
+        `UPDATE USUARIOS_PROJECTES SET alumne = '${userprojectAlumne}' WHERE id = '${userprojectId}'`
+        `UPDATE USUARIOS_PROJECTES SET projecte = '${userprojectProjecte}' WHERE id = '${userprojectId}'`
       );
     } catch (e) {
       console.log(e);
