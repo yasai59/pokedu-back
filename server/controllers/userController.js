@@ -40,7 +40,7 @@ export const studentsGet = async (req, res) => {
 
 //Eliminar un usuario
 export const userDelete = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.query;
   let result;
   try {
     result = await dbQuery(`DELETE FROM USUARIOS WHERE id = '${userId}';`);
