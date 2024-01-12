@@ -8,6 +8,7 @@ import {
   userPost,
   userPut,
   usersGet,
+  usersProjectGet,
 } from "../controllers/userController.js";
 
 //Creamos la ruta
@@ -19,6 +20,7 @@ const router = Router();
 router.get("/", usersGet);
 router.get("/students", studentsGet);
 router.get("/user", userGet);
+router.get("/usersproject", usersProjectGet);
 router.post("/login", login);
 router.post("/importusers", importUsersPost)
 router.post("/", userPost);
