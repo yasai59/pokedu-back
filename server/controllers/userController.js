@@ -100,7 +100,7 @@ export const userPost = async (req, res) => {
 
 //Importar usuarios
 export const importUsersPost = async (req, res) => {
-  let {usersArray} = req.body;
+  let { usersArray } = req.body;
 
   usersArray = JSON.parse(usersArray);
 
@@ -125,11 +125,13 @@ export const importUsersPost = async (req, res) => {
       (user) =>
         `('${user.userUser}', '${user.userPass}', '${user.userName}', '${user.userType}')`
     )
-    .join(',');
+    .join(",");
 
   let result;
   try {
-    result = await dbQuery(`INSERT INTO USUARIOS (user, pass, nom, tipus) VALUES ${valuesClause};`);
+    result = await dbQuery(
+      `INSERT INTO USUARIOS (user, pass, nom, tipus) VALUES ${valuesClause};`
+    );
   } catch (e) {
     console.log(e);
     return res.status(400).json({
@@ -163,7 +165,7 @@ export const userPut = async (req, res) => {
   try {
     result = await dbQuery(`
       UPDATE USUARIOS 
-      SET ${setClause.join(', ')}
+      SET ${setClause.join(", ")}
       WHERE id = '${userId}'
     `);
   } catch (e) {
@@ -185,7 +187,7 @@ export const login = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `SELECT id, user, nom, pass, tipus FROM USUARIOS WHERE user = '${userName}'`
+      `SELECT id, user, nom, pass, tipus, foto FROM USUARIOS WHERE user = '${userName}'`
     );
   } catch (e) {
     return res.status(400).json({
@@ -217,8 +219,7 @@ export const login = async (req, res) => {
 
 //Conseguir todos los usuarios de un projecto
 export const usersProjectGet = async (req, res) => {
-
-  const { projectId} = req.query;
+  const { projectId } = req.query;
 
   let result;
   try {
@@ -240,7 +241,4 @@ export const usersProjectGet = async (req, res) => {
   res.json({
     msg: result[0],
   });
-
-
 };
-
