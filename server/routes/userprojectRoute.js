@@ -1,5 +1,12 @@
 import { Router } from "express";
-import { userprojectDelete, userprojectGet, userprojectPost, userprojectPut, userprojectsGet } from "../controllers/userprojectController.js";
+import {
+  userprojectDelete,
+  userprojectGet,
+  userprojectPost,
+  userprojectPut,
+  userprojectsGet,
+  userprojectMultiplePost,
+} from "../controllers/userprojectController.js";
 
 //Creamos la ruta
 const router = Router();
@@ -10,7 +17,8 @@ const router = Router();
 router.get("/", userprojectsGet);
 router.get("/user", userprojectGet);
 router.post("/", userprojectPost);
-router.put("/",userprojectPut);
-router.delete("/",userprojectDelete);
+router.post("/multiple", userprojectMultiplePost);
+router.put("/", userprojectPut);
+router.delete("/", userprojectDelete);
 
 export default router;

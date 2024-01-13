@@ -224,11 +224,10 @@ export const usersProjectGet = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      ` SELECT u.*
+      `SELECT u.*
       FROM USUARIOS u
       JOIN USUARIOS_PROJECTES up ON u.id = up.alumne
-      JOIN PROJECTES p ON up.projecte = p.id
-      WHERE u.id = '${projectId}';
+      WHERE up.projecte = '${projectId}';
       `
     );
   } catch (e) {
@@ -239,6 +238,6 @@ export const usersProjectGet = async (req, res) => {
   }
 
   res.json({
-    msg: result[0],
+    msg: result,
   });
 };

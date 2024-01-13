@@ -65,7 +65,7 @@ export const itemsProjectGet = async (req, res) => {
       JOIN ACTIVITATS a ON n.activitat = a.id
       JOIN USUARIOS_PROJECTES up ON a.projecte = up.projecte
       JOIN PROJECTES p ON up.projecte = p.id
-      WHERE p.id = ${projectId};
+      WHERE p.id = ${projectId} GROUP BY i.id;
       `);
   } catch (e) {
     return res.status(400).json({

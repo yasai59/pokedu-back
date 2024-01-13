@@ -1,5 +1,12 @@
 import { Router } from "express";
-import { gradeprojectDelete, gradeprojectGet, gradeprojectPost, gradeprojectPut, gradeprojectsGet } from "../controllers/gradeprojectController.js";
+import {
+  gradeprojectDelete,
+  gradeprojectGet,
+  gradeprojectPost,
+  gradeprojectPut,
+  gradeprojectsGet,
+  gradeprojectMultiplePost,
+} from "../controllers/gradeprojectController.js";
 
 //Creamos la ruta
 const router = Router();
@@ -10,7 +17,8 @@ const router = Router();
 router.get("/", gradeprojectsGet);
 router.get("/grade", gradeprojectGet);
 router.post("/", gradeprojectPost);
-router.put("/",gradeprojectPut);
-router.delete("/",gradeprojectDelete);
+router.post("/multiple", gradeprojectMultiplePost);
+router.put("/", gradeprojectPut);
+router.delete("/", gradeprojectDelete);
 
 export default router;
