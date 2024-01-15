@@ -12,13 +12,13 @@ import {
 const router = Router();
 
 //router.get("/", [verifyJWT], usersGet); ejemplo verificar
-
 //Rutas ITEMS
 router.get("/", itemsGet);
 router.get("/item", itemGet);
 router.get("/itemsproject", itemsProjectGet);
+router.get("/itemactivity", itemActivityGet);
 router.post("/", itemPost);
-router.put("/", itemPut);
-router.delete("/", itemDelete);
+router.put("/",itemPut);
+router.delete("/",itemDelete);
 
 export default router;
