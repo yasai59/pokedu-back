@@ -151,7 +151,7 @@ export const userPut = async (req, res) => {
   const setClause = [];
   if (userFoto) setClause.push(`foto = '${userFoto}'`);
   if (user) setClause.push(`user = '${user}'`);
-  if (pass) setClause.push(`pass = '${pass}'`);
+  if (pass) setClause.push(`pass = '${bcrypt.hashSync(pass, 10)}'`);
   if (nom) setClause.push(`nom = '${nom}'`);
   if (tipus) setClause.push(`tipus = '${tipus}'`);
 
