@@ -20,11 +20,11 @@ export const userprojectsGet = async (req, res) => {
 
 //Borrar un valor de la tabla USUARIOS_PROJECTES
 export const userprojectDelete = async (req, res) => {
-  const { userprojectId } = req.body;
+  const { user, projecte } = req.body;
   let result;
   try {
     result = await dbQuery(
-      `DELETE FROM USUARIOS_PROJECTES WHERE id = '${userprojectId}';`
+      `DELETE FROM USUARIOS_PROJECTES WHERE alumne = '${user}' AND projecte = '${projecte}';`
     );
   } catch (e) {
     console.log(e);
