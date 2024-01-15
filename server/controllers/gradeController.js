@@ -95,3 +95,30 @@ export const gradePut = async (req, res) => {
     msg: "ok",
   });
 };
+
+// Corregir de forma masiva las notas de una actividad
+export const gradePutMassive = async (req, res) => {
+  const { activityId, marks } = req.body;
+
+  let promises = [];
+  try {
+    const keys = Object.keys(marks);
+    keys.forEach((key) => {
+      promises.push(
+        dbQuery(
+          `UPDATE NOTAS SET nota = '${marks[key]}' WHERE alumne = '${key}' AND activitat = '${activityId}';`
+        )
+      );
+    });
+    await Promise.all(promises);
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: "ok",
+  });
+};
