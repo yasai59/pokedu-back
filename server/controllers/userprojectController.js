@@ -20,7 +20,7 @@ export const userprojectsGet = async (req, res) => {
 
 //Borrar un valor de la tabla USUARIOS_PROJECTES
 export const userprojectDelete = async (req, res) => {
-  const { user, projecte } = req.body;
+  const { user, projecte } = req.query;
   let result;
   try {
     result = await dbQuery(
