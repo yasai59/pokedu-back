@@ -26,6 +26,12 @@ export const userprojectDelete = async (req, res) => {
     result = await dbQuery(
       `DELETE FROM USUARIOS_PROJECTES WHERE alumne = '${user}' AND projecte = '${projecte}';`
     );
+
+    if (result.affectedRows === 0) {
+      return res.status(400).json({
+        error: "Invalid query",
+      });
+    }
   } catch (e) {
     console.log(e);
     return res.status(400).json({
