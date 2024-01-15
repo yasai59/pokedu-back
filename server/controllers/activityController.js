@@ -104,12 +104,12 @@ export const activityPost = async (req, res) => {
 
 //Editar una actividad
 export const activityPut = async (req, res) => {
-  const { activityId, activityDataFinal } = req.body;
+  const { activityId, activityDataFinal, activityDataInicio } = req.body;
 
   let result;
   try {
     result = await dbQuery(
-      `UPDATE ACTIVITATS SET data-final = '${activityDataFinal}' WHERE id = '${activityId}'`
+      `UPDATE ACTIVITATS SET \`data-final\` = '${activityDataFinal}', \`data-inici\` = '${activityDataInicio}' WHERE id = '${activityId}'`
     );
   } catch (e) {
     console.log(e);
