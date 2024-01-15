@@ -6,6 +6,7 @@ import {
   itemPut,
   itemsGet,
   itemsProjectGet,
+  itemActivityGet,
 } from "../controllers/itemController.js";
 
 //Creamos la ruta
@@ -18,7 +19,7 @@ router.get("/item", itemGet);
 router.get("/itemsproject", itemsProjectGet);
 router.get("/itemactivity", itemActivityGet);
 router.post("/", itemPost);
-router.put("/",itemPut);
-router.delete("/",itemDelete);
+router.put("/", itemPut);
+router.delete("/", itemDelete);
 
 export default router;
