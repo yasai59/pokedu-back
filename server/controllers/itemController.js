@@ -18,6 +18,24 @@ export const itemsGet = async (req, res) => {
   });
 };
 
+//Obtener un item en concreto de una actividd
+export const itemActivityGet = async (req, res) => {
+  const { activityid } = req.query;
+
+  let result;
+  try {
+    result = await dbQuery(`SELECT item FROM NOTAS WHERE activitat = ${activityid};`);
+  } catch (e) {
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: result[0],
+  });
+};
+
 //Borrar un item
 export const itemDelete = async (req, res) => {
   const { itemId } = req.body;
