@@ -172,16 +172,33 @@ export async function activityPostMassive(req, res) {
   try {
     const alumnos = await obtenerAlumnosEnProyecto(projectId);
 
-    const insertPromises = alumnos.map(async (alumno) => {
-      const query = `
-        INSERT INTO NOTAS (nota, activitat, alumne, item)
-        VALUES (-1, ${activityId}, ${alumno.id}, ${skillId});
+    const updatePromises = alumnos.map(async (alumno) => {
+      const existingActivityQuery = `
+        SELECT * FROM NOTAS
+        WHERE activitat = ${activityId} AND alumne = ${alumno.id};
       `;
 
-      await dbQuery(query);
+      const existingActivity = await dbQuery(existingActivityQuery);
+
+      if (existingActivity.length > 0) {
+        // Si ya existe la actividad, actualiza la skill
+        const updateQuery = `
+          UPDATE NOTAS
+          SET item = ${skillId}
+          WHERE activitat = ${activityId} AND alumne = ${alumno.id};
+        `;
+        await dbQuery(updateQuery);
+      } else {
+        // Si no existe la actividad, realiza la inserción
+        const insertQuery = `
+          INSERT INTO NOTAS (nota, activitat, alumne, item)
+          VALUES (-1, ${activityId}, ${alumno.id}, ${skillId});
+        `;
+        await dbQuery(insertQuery);
+      }
     });
 
-    await Promise.all(insertPromises);
+    await Promise.all(updatePromises);
   } catch (e) {
     return res.status(400).json({
       error: "Invalid query",
