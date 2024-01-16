@@ -54,6 +54,35 @@ export const projectGet = async (req, res) => {
   });
 };
 
+export const projectActivityGet = async (req, res) => {
+  const { activityId } = req.query;
+
+  try {
+    const projectInfoQuery = `
+      SELECT PROJECTES.*
+      FROM ACTIVITATS
+      JOIN PROJECTES ON ACTIVITATS.projecte = PROJECTES.id
+      WHERE ACTIVITATS.id = ${activityId};
+    `;
+    const projectInfoResult = await dbQuery(projectInfoQuery);
+
+    if (projectInfoResult.length === 0) {
+      return res.status(404).json({
+        error: "No se encontró información del proyecto asociado a la actividad.",
+      });
+    }
+
+    res.json({
+      msg: projectInfoResult[0],
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      error: "Error interno del servidor",
+    });
+  }
+};
+
 //Crear un projecto
 export const projectPost = async (req, res) => {
   const { projectName } = req.body;

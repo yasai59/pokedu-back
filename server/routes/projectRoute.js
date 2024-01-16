@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  projectActivityGet,
   projectDelete,
   projectGet,
   projectPost,
@@ -13,8 +14,6 @@ import verifyTeacher from "../middlewares/verifyTeacher.js";
 //Creamos la ruta
 const router = Router();
 
-//router.get("/", [verifyJWT], usersGet); ejemplo verificar
-
 //Rutas projectos
 router.get("/", [verifyJWT], projectsGet);
 router.get("/project", [verifyJWT], projectGet);
@@ -22,5 +21,6 @@ router.post("/", [verifyJWT, verifyTeacher], projectPost);
 router.put("/", [verifyJWT, verifyTeacher], projectPut);
 router.delete("/", [verifyJWT, verifyTeacher], projectDelete);
 router.get("/projectuser", [verifyJWT], projectUserGet);
+router.get("/projectactivity", projectActivityGet);
 
 export default router;
