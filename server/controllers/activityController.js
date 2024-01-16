@@ -180,8 +180,37 @@ export async function activityPostMassive(req, res) {
 
       const existingActivity = await dbQuery(existingActivityQuery);
 
+      let skills = await Conseguiritems(projectId);
+
+      // Calcula el porcentaje total antes de la modificación
+      const totalPercentageBefore = skills.reduce((acc, skill) => acc + skill.percentatge, 0);
+
+      const existingSkillQuery = `SELECT percentatge FROM ITEMS WHERE id = ${skillId};`;
+
+      const thisSkill= await dbQuery(existingSkillQuery);
+
+      const totalPercentageAfter = totalPercentageBefore + thisSkill[0].percentatge;
+
       if (existingActivity.length > 0) {
-        // Si ya existe la actividad, actualiza la skill
+
+
+        const selectquery = `
+          SELECT i.percentatge
+          FROM NOTAS n
+          JOIN ITEMS i ON n.item = i.id
+          WHERE activitat = ${activityId} GROUP BY i.percentatge;
+        `;
+
+        const result = await dbQuery(selectquery);
+        
+        if (totalPercentageAfter-result[0].percentatge > 100) {
+
+          console.log("El porcentaje final es superior a 100!");
+          throw new Error("El porcentaje final es superior a 100!");
+          
+        }
+  
+
         const updateQuery = `
           UPDATE NOTAS
           SET item = ${skillId}
@@ -189,6 +218,15 @@ export async function activityPostMassive(req, res) {
         `;
         await dbQuery(updateQuery);
       } else {
+
+
+      if (totalPercentageAfter > 100) {
+
+        console.log("El porcentaje final es superior a 100!");
+        throw new Error("El porcentaje final es superior a 100!");
+        
+      }
+
         // Si no existe la actividad, realiza la inserción
         const insertQuery = `
           INSERT INTO NOTAS (nota, activitat, alumne, item)
@@ -198,7 +236,9 @@ export async function activityPostMassive(req, res) {
       }
     });
 
-    await Promise.all(updatePromises);
+    await Promise.all(updatePromises).catch(e => {
+      throw e;
+    });
   } catch (e) {
     return res.status(400).json({
       error: "Invalid query",
@@ -221,3 +261,22 @@ async function obtenerAlumnosEnProyecto(projectId) {
 
   return results;
 }
+
+
+ const Conseguiritems = async (projectId) => {
+  let result;
+  try {
+    result = await dbQuery(`SELECT i.*
+      FROM ITEMS i
+      JOIN NOTAS n ON i.id = n.item
+      JOIN ACTIVITATS a ON n.activitat = a.id
+      JOIN USUARIOS_PROJECTES up ON a.projecte = up.projecte
+      JOIN PROJECTES p ON up.projecte = p.id
+      WHERE p.id = ${projectId} GROUP BY i.id;
+      `);
+  } catch (e) {
+    return 0;
+  }
+
+ return result;
+};
