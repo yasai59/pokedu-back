@@ -24,7 +24,9 @@ export const itemActivityGet = async (req, res) => {
 
   let result;
   try {
-    result = await dbQuery(`SELECT item FROM NOTAS WHERE activitat = ${activityid};`);
+    result = await dbQuery(
+      `SELECT item FROM NOTAS WHERE activitat = ${activityid};`
+    );
   } catch (e) {
     return res.status(400).json({
       error: "Invalid query",
@@ -120,6 +122,11 @@ export const itemPost = async (req, res) => {
 //Editar un item
 export const itemPut = async (req, res) => {
   const { itemId, itemFoto } = req.body;
+
+  // itemId
+  // itemNom
+  // itemPercentatge
+  // itemFoto
 
   let result;
   try {
