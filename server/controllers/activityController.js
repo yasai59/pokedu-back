@@ -83,12 +83,13 @@ export const activityPost = async (req, res) => {
     activityDataInici,
     activityDataFinal,
     activityProjectId,
+    activityDescription,
   } = req.body;
 
   let result;
   try {
     result = await dbQuery(
-      `INSERT INTO ACTIVITATS (nom, doc, \`data-inici\`, \`data-final\`, projecte) VALUES ('${activityName}',NULL,'${activityDataInici}','${activityDataFinal}','${activityProjectId}');`
+      `INSERT INTO ACTIVITATS (nom, doc, \`data-inici\`, \`data-final\`, projecte, descripcion) VALUES ('${activityName}',NULL,'${activityDataInici}','${activityDataFinal}','${activityProjectId}','${activityDescription}');`
     );
   } catch (e) {
     console.log(e);
@@ -104,12 +105,12 @@ export const activityPost = async (req, res) => {
 
 //Editar una actividad
 export const activityPut = async (req, res) => {
-  const { activityId, activityDataFinal, activityDataInicio } = req.body;
+  const { activityId, activityDataFinal, activityDataInicio, activityDescripcion } = req.body;
 
   let result;
   try {
     result = await dbQuery(
-      `UPDATE ACTIVITATS SET \`data-final\` = '${activityDataFinal}', \`data-inici\` = '${activityDataInicio}' WHERE id = '${activityId}'`
+      `UPDATE ACTIVITATS SET \`data-final\` = '${activityDataFinal}', \`data-inici\` = '${activityDataInicio}', descripcion = '${activityDescripcion}'  WHERE id = '${activityId}'`
     );
   } catch (e) {
     console.log(e);
