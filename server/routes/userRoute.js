@@ -10,21 +10,22 @@ import {
   usersGet,
   usersProjectGet,
 } from "../controllers/userController.js";
+import verifyTeacher from "../middlewares/verifyTeacher.js";
+import verifyJWT from "../middlewares/verifyJWT.js";
 
 //Creamos la ruta
 const router = Router();
 
-//router.get("/", [verifyJWT], usersGet); ejemplo verificar
 
 //Rutas usuarios
-router.get("/", usersGet);
-router.get("/students", studentsGet);
-router.get("/user", userGet);
-router.get("/usersproject", usersProjectGet);
+router.get("/", [verifyJWT, verifyTeacher], usersGet);
+router.get("/students", [verifyJWT], studentsGet);
+router.get("/user", [verifyJWT], userGet);
+router.get("/usersproject", [verifyJWT], usersProjectGet);
 router.post("/login", login);
-router.post("/importusers", importUsersPost)
-router.post("/", userPost);
-router.delete("/", userDelete);
-router.put("/", userPut);
+router.post("/importusers", [verifyJWT, verifyTeacher], importUsersPost)
+router.post("/", [verifyJWT, verifyTeacher], userPost);
+router.delete("/", [verifyJWT, verifyTeacher], userDelete);
+router.put("/", [verifyJWT, verifyTeacher], userPut);
 
 export default router;

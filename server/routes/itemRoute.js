@@ -8,18 +8,19 @@ import {
   itemsProjectGet,
   itemActivityGet,
 } from "../controllers/itemController.js";
+import verifyJWT from "../middlewares/verifyJWT.js";
+import verifyTeacher from "../middlewares/verifyTeacher.js";
 
 //Creamos la ruta
 const router = Router();
 
-//router.get("/", [verifyJWT], usersGet); ejemplo verificar
 //Rutas ITEMS
-router.get("/", itemsGet);
-router.get("/item", itemGet);
-router.get("/itemsproject", itemsProjectGet);
-router.get("/itemactivity", itemActivityGet);
-router.post("/", itemPost);
-router.put("/", itemPut);
-router.delete("/", itemDelete);
+router.get("/", [verifyJWT], itemsGet);
+router.get("/item", [verifyJWT], itemGet);
+router.get("/itemsproject", [verifyJWT], itemsProjectGet);
+router.get("/itemactivity", [verifyJWT], itemActivityGet);
+router.post("/", [verifyJWT, verifyTeacher], itemPost);
+router.put("/", [verifyJWT, verifyTeacher], itemPut);
+router.delete("/", [verifyJWT, verifyTeacher], itemDelete);
 
 export default router;
