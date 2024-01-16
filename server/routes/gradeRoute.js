@@ -7,18 +7,19 @@ import {
   gradesGet,
   gradePutMassive,
 } from "../controllers/gradeController.js";
+import verifyTeacher from "../middlewares/verifyTeacher.js";
+import verifyJWT from "../middlewares/verifyJWT.js";
 
 //Creamos la ruta
 const router = Router();
 
-//router.get("/", [verifyJWT], usersGet); ejemplo verificar
 
 //Rutas NOTAS
-router.get("/", gradesGet);
-router.get("/grade", gradeGet);
-router.post("/", gradePost);
-router.put("/", gradePut);
-router.put("/massive", gradePutMassive);
-router.delete("/", gradeDelete);
+router.get("/", [verifyJWT], gradesGet);
+router.get("/grade", [verifyJWT], gradeGet);
+router.post("/", [verifyJWT, verifyTeacher], gradePost);
+router.put("/", [verifyJWT, verifyTeacher], gradePut);
+router.put("/massive", [verifyJWT, verifyTeacher], gradePutMassive);
+router.delete("/", [verifyJWT, verifyTeacher], gradeDelete);
 
 export default router;

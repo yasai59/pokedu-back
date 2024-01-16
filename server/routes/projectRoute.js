@@ -16,11 +16,11 @@ const router = Router();
 //router.get("/", [verifyJWT], usersGet); ejemplo verificar
 
 //Rutas projectos
-router.get("/", [verifyJWT, verifyTeacher], projectsGet);
-router.get("/project", projectGet);
-router.post("/", projectPost);
-router.put("/", projectPut);
-router.delete("/", projectDelete);
-router.get("/projectuser", projectUserGet);
+router.get("/", [verifyJWT], projectsGet);
+router.get("/project", [verifyJWT], projectGet);
+router.post("/", [verifyJWT, verifyTeacher], projectPost);
+router.put("/", [verifyJWT, verifyTeacher], projectPut);
+router.delete("/", [verifyJWT, verifyTeacher], projectDelete);
+router.get("/projectuser", [verifyJWT], projectUserGet);
 
 export default router;

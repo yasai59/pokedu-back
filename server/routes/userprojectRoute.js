@@ -7,18 +7,18 @@ import {
   userprojectsGet,
   userprojectMultiplePost,
 } from "../controllers/userprojectController.js";
+import verifyTeacher from "../middlewares/verifyTeacher.js";
+import verifyJWT from "../middlewares/verifyJWT.js";
 
 //Creamos la ruta
 const router = Router();
 
-//router.get("/", [verifyJWT], usersGet); ejemplo verificar
-
 //Rutas USUARIOS_PROJECTES
-router.get("/", userprojectsGet);
-router.get("/user", userprojectGet);
-router.post("/", userprojectPost);
-router.post("/multiple", userprojectMultiplePost);
-router.put("/", userprojectPut);
-router.delete("/", userprojectDelete);
+router.get("/", [verifyJWT], userprojectsGet);
+router.get("/user", [verifyJWT], userprojectGet);
+router.post("/", [verifyJWT, verifyTeacher], userprojectPost);
+router.post("/multiple", [verifyJWT, verifyTeacher], userprojectMultiplePost);
+router.put("/", [verifyJWT, verifyTeacher], userprojectPut);
+router.delete("/", [verifyJWT, verifyTeacher], userprojectDelete);
 
 export default router;
