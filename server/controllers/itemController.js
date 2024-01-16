@@ -119,20 +119,32 @@ export const itemPost = async (req, res) => {
   });
 };
 
-//Editar un item
+// Editar un item
 export const itemPut = async (req, res) => {
-  const { itemId, itemFoto } = req.body;
+  const { itemId, itemNom, itemPercentatge, itemFoto } = req.body;
 
-  // itemId
-  // itemNom
-  // itemPercentatge
-  // itemFoto
+  // Verificar que se proporciona al menos un campo para actualizar
+  if (!itemId || (!itemNom && !itemPercentatge && !itemFoto)) {
+    return res.status(400).json({
+      error: "Se requiere al menos un campo para actualizar",
+    });
+  }
+
+  // Construir la consulta SQL basada en los campos proporcionados
+  let sqlQuery = "UPDATE ITEMS SET ";
+  if (itemNom) sqlQuery += `nom = '${itemNom}', `;
+  if (itemPercentatge) sqlQuery += `percentatge = '${itemPercentatge}', `;
+  if (itemFoto) sqlQuery += `foto = '${itemFoto}', `;
+
+  // Eliminar la coma adicional al final de la consulta
+  sqlQuery = sqlQuery.slice(0, -2);
+
+  // Agregar la condición WHERE
+  sqlQuery += ` WHERE id = '${itemId}'`;
 
   let result;
   try {
-    result = await dbQuery(
-      `UPDATE ITEMS SET foto = '${itemFoto}' WHERE id = '${itemId}'`
-    );
+    result = await dbQuery(sqlQuery);
   } catch (e) {
     console.log(e);
     return res.status(400).json({
@@ -144,3 +156,4 @@ export const itemPut = async (req, res) => {
     msg: "ok",
   });
 };
+
