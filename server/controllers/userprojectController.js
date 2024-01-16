@@ -64,12 +64,25 @@ export const userprojectGet = async (req, res) => {
   });
 };
 
-//Crear un valor de la tabla USUARIOS_PROJECTES
+// Crear un valor de la tabla USUARIOS_PROJECTES
 export const userprojectPost = async (req, res) => {
   const { userprojectProjecte, userprojectAlumne } = req.body;
 
   let result;
   try {
+    // Verificar si ya existe la relación usuario-proyecto
+    const existingRelation = await dbQuery(
+      `SELECT * FROM USUARIOS_PROJECTES WHERE alumne='${userprojectAlumne}' AND projecte='${userprojectProjecte}';`
+    );
+
+    if (existingRelation.length > 0) {
+      // Si ya existe, no realizar la inserción y devolver un mensaje
+      return res.status(400).json({
+        error: "La relación ya existe",
+      });
+    }
+
+    // Si no existe, realizar la inserción
     result = await dbQuery(
       `INSERT INTO USUARIOS_PROJECTES (alumne, projecte) VALUES ('${userprojectAlumne}','${userprojectProjecte}');`
     );
@@ -99,6 +112,21 @@ export const userprojectMultiplePost = async (req, res) => {
     });
 
   try {
+    // Verificar si ya existen relaciones usuario-proyecto
+    const existingRelations = await dbQuery(
+      `SELECT * FROM USUARIOS_PROJECTES WHERE projecte='${userprojectProjecte}' AND alumne IN ('${userprojectAlumnes.join("','")}');`
+    );
+
+    if (existingRelations.length > 0) {
+      // Filtrar los usuarios que ya existen en la base de datos
+      const existingUsers = existingRelations.map((relation) => relation.alumne);
+      const duplicateUsers = userprojectAlumnes.filter((alumne) => existingUsers.includes(alumne));
+
+      return res.status(400).json({
+        error: `Algun alumno ya existe en el proyecto: ${duplicateUsers.join(", ")}`,
+      });
+    }
+
     let str = userprojectAlumnes
       .map((alumne) => {
         return `('${alumne}','${userprojectProjecte}'),`;
