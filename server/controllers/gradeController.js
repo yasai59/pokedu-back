@@ -20,7 +20,7 @@ export const gradesGet = async (req, res) => {
 
 //Borrar una nota
 export const gradeDelete = async (req, res) => {
-  const { gradeId } = req.body;
+  const { gradeId } = req.query;
   let result;
   try {
     result = await dbQuery(`DELETE FROM NOTAS WHERE id = '${gradeId}';`);

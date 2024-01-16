@@ -38,7 +38,7 @@ export const itemActivityGet = async (req, res) => {
 
 //Borrar un item
 export const itemDelete = async (req, res) => {
-  const { itemId } = req.body;
+  const { itemId } = req.query;
   let result;
   try {
     result = await dbQuery(`DELETE FROM ITEMS WHERE id = '${itemId}';`);

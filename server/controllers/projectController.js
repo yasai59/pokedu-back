@@ -20,7 +20,7 @@ export const projectsGet = async (req, res) => {
 
 //Borrar un projecto
 export const projectDelete = async (req, res) => {
-  const { projectId } = req.body;
+  const { projectId } = req.query;
   let result;
   try {
     result = await dbQuery(`DELETE FROM PROJECTES WHERE id = '${projectId}';`);

@@ -38,7 +38,7 @@ export const activitiesGetByProject = async (req, res) => {
 
 //Borrar una actividad
 export const activityDelete = async (req, res) => {
-  const { activityId } = req.body;
+  const { activityId } = req.query;
   let result;
   try {
     result = await dbQuery(
