@@ -139,7 +139,7 @@ export const currentActivityUserGet = async (req, res) => {
         FROM ACTIVITATS a
         JOIN NOTAS n ON a.id = n.activitat
         JOIN USUARIOS u ON n.alumne = u.id
-        WHERE u.id = ${userId} AND a.\`data-final\` > NOW()
+        WHERE u.id = ${userId} AND a.\`data-final\` >= CURDATE() AND a.\`data-inici\` <= CURDATE()
         ORDER BY a.\`data-inici\`;
       `);
   } catch (e) {

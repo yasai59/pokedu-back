@@ -60,7 +60,7 @@ export const gradeActGet = async (req, res) => {
   let result;
   try {
     result = await dbQuery(
-      `SELECT nota FROM NOTAS WHERE alumne = '${alumno}' AND activitat = '${actividad}';`
+      `SELECT nota FROM NOTAS WHERE alumne = '${alumno}' AND activitat = '${actividad}' AND nota != -1;`
     );
   } catch (e) {
     return res.status(400).json({
