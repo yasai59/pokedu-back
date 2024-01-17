@@ -105,7 +105,12 @@ export const activityPost = async (req, res) => {
 
 //Editar una actividad
 export const activityPut = async (req, res) => {
-  const { activityId, activityDataFinal, activityDataInicio, activityDescripcion } = req.body;
+  const {
+    activityId,
+    activityDataFinal,
+    activityDataInicio,
+    activityDescripcion,
+  } = req.body;
 
   let result;
   try {
@@ -184,17 +189,19 @@ export async function activityPostMassive(req, res) {
       let skills = await Conseguiritems(projectId);
 
       // Calcula el porcentaje total antes de la modificación
-      const totalPercentageBefore = skills.reduce((acc, skill) => acc + skill.percentatge, 0);
+      const totalPercentageBefore = skills.reduce(
+        (acc, skill) => acc + skill.percentatge,
+        0
+      );
 
       const existingSkillQuery = `SELECT percentatge FROM ITEMS WHERE id = ${skillId};`;
 
-      const thisSkill= await dbQuery(existingSkillQuery);
+      const thisSkill = await dbQuery(existingSkillQuery);
 
-      const totalPercentageAfter = totalPercentageBefore + thisSkill[0].percentatge;
+      const totalPercentageAfter =
+        totalPercentageBefore + thisSkill[0].percentatge;
 
       if (existingActivity.length > 0) {
-
-
         const selectquery = `
           SELECT i.percentatge
           FROM NOTAS n
@@ -203,14 +210,11 @@ export async function activityPostMassive(req, res) {
         `;
 
         const result = await dbQuery(selectquery);
-        
-        if (totalPercentageAfter-result[0].percentatge > 100) {
 
+        if (totalPercentageAfter - result[0].percentatge > 100) {
           console.log("El porcentaje final es superior a 100!");
           throw new Error("El porcentaje final es superior a 100!");
-          
         }
-  
 
         const updateQuery = `
           UPDATE NOTAS
@@ -219,14 +223,10 @@ export async function activityPostMassive(req, res) {
         `;
         await dbQuery(updateQuery);
       } else {
-
-
-      if (totalPercentageAfter > 100) {
-
-        console.log("El porcentaje final es superior a 100!");
-        throw new Error("El porcentaje final es superior a 100!");
-        
-      }
+        if (totalPercentageAfter > 100) {
+          console.log("El porcentaje final es superior a 100!");
+          throw new Error("El porcentaje final es superior a 100!");
+        }
 
         // Si no existe la actividad, realiza la inserción
         const insertQuery = `
@@ -237,7 +237,7 @@ export async function activityPostMassive(req, res) {
       }
     });
 
-    await Promise.all(updatePromises).catch(e => {
+    await Promise.all(updatePromises).catch((e) => {
       throw e;
     });
   } catch (e) {
@@ -263,8 +263,7 @@ async function obtenerAlumnosEnProyecto(projectId) {
   return results;
 }
 
-
- const Conseguiritems = async (projectId) => {
+const Conseguiritems = async (projectId) => {
   let result;
   try {
     result = await dbQuery(`SELECT i.*
@@ -279,5 +278,5 @@ async function obtenerAlumnosEnProyecto(projectId) {
     return 0;
   }
 
- return result;
+  return result;
 };

@@ -53,6 +53,45 @@ export const gradeGet = async (req, res) => {
     msg: result[0],
   });
 };
+// Obtener las notas de una actividad
+export const gradeActGet = async (req, res) => {
+  const { alumno, actividad } = req.body;
+
+  let result;
+  try {
+    result = await dbQuery(
+      `SELECT * FROM NOTAS WHERE alumne = '${alumno}' AND activitat = '${actividad}';`
+    );
+  } catch (e) {
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: result[0],
+  });
+};
+
+// Obtener las notas de un item
+export const gradeItemGet = async (req, res) => {
+  const { alumno, item } = req.body;
+
+  let result;
+  try {
+    result = await dbQuery(
+      `SELECT AVG(nota) as nota FROM NOTAS WHERE alumne = '${alumno}' AND item = '${item}' AND nota != -1;`
+    );
+  } catch (e) {
+    return res.status(400).json({
+      error: "Invalid query",
+    });
+  }
+
+  res.json({
+    msg: result[0],
+  });
+};
 
 //Crear una nota
 export const gradePost = async (req, res) => {
