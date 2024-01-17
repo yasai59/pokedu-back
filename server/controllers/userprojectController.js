@@ -23,6 +23,12 @@ export const userprojectDelete = async (req, res) => {
   const { user, projecte } = req.query;
   let result;
   try {
+    // Get the IDs of the notes associated with the project and student
+    const noteIds = await dbQuery(
+      `SELECT id FROM NOTAS WHERE alumne = '${user}' AND activitat IN (SELECT id FROM ACTIVITATS WHERE projecte = '${projecte}');`
+    );
+
+    // Delete the user-project relationship
     result = await dbQuery(
       `DELETE FROM USUARIOS_PROJECTES WHERE alumne = '${user}' AND projecte = '${projecte}';`
     );
@@ -31,6 +37,14 @@ export const userprojectDelete = async (req, res) => {
       return res.status(400).json({
         error: "Invalid query",
       });
+    }
+    // Delete all associated notes
+    if (noteIds.length > 0) {
+      await dbQuery(
+        `DELETE FROM NOTAS WHERE id IN (${noteIds
+          .map((note) => note.id)
+          .join(",")});`
+      );
     }
   } catch (e) {
     console.log(e);
@@ -43,7 +57,6 @@ export const userprojectDelete = async (req, res) => {
     msg: "ok",
   });
 };
-
 //Obtener un valor de la tabla USUARIOS_PROJECTES
 export const userprojectGet = async (req, res) => {
   const { userprojectId } = req.request;
@@ -114,16 +127,24 @@ export const userprojectMultiplePost = async (req, res) => {
   try {
     // Verificar si ya existen relaciones usuario-proyecto
     const existingRelations = await dbQuery(
-      `SELECT * FROM USUARIOS_PROJECTES WHERE projecte='${userprojectProjecte}' AND alumne IN ('${userprojectAlumnes.join("','")}');`
+      `SELECT * FROM USUARIOS_PROJECTES WHERE projecte='${userprojectProjecte}' AND alumne IN ('${userprojectAlumnes.join(
+        "','"
+      )}');`
     );
 
     if (existingRelations.length > 0) {
       // Filtrar los usuarios que ya existen en la base de datos
-      const existingUsers = existingRelations.map((relation) => relation.alumne);
-      const duplicateUsers = userprojectAlumnes.filter((alumne) => existingUsers.includes(alumne));
+      const existingUsers = existingRelations.map(
+        (relation) => relation.alumne
+      );
+      const duplicateUsers = userprojectAlumnes.filter((alumne) =>
+        existingUsers.includes(alumne)
+      );
 
       return res.status(400).json({
-        error: `Algun alumno ya existe en el proyecto: ${duplicateUsers.join(", ")}`,
+        error: `Algun alumno ya existe en el proyecto: ${duplicateUsers.join(
+          ", "
+        )}`,
       });
     }
 
